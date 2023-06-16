@@ -1,0 +1,24 @@
+version: '3.5'
+
+networks:
+  portfolio:
+    external: false
+
+services:
+
+  postgres-go:
+    image: "postgres:14.2"
+    container_name: postgres-go
+    ports:
+      - "5455:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+      - DEBUG=True
+    restart: always
+    networks:
+      - portfolio
+    volumes:
+      - ./db-scripts:/docker-entrypoint-initdb.d
+
